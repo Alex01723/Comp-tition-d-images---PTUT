@@ -12,12 +12,8 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
-
-Route::get('{n}', function($n) {
-    return Response::make("Je suis la réponse " . $n . ".");
-})->where('n', '[1-3]');
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +28,10 @@ Route::get('{n}', function($n) {
 
 Route::group(['middleware' => ['web']], function () {
     //
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
 });
