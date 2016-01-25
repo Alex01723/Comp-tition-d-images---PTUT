@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('{n}', function($n) {
+    return Response::make("Je suis la réponse " . $n . ".");
+})->where('n', '[1-3]');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
