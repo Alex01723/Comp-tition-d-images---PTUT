@@ -21,7 +21,7 @@ Route::get('home', '\Bestmomo\Scafold\Http\Controllers\HomeController@index');
 
 //Route::get('Campagne', function () {return view('Campagne');});
 Route::controller('Campagne', 'CampagneController');
-
+Route::controller('Image', 'ImageController');
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -40,7 +40,7 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
-
+//Route::post('image/envoi', 'ImageController@postForm');
 
 
 Menu::make('MyNavBar', function($menu){

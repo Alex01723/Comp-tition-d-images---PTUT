@@ -150,6 +150,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         //Lavary\Menu\ServiceProvider::class,
         'Lavary\Menu\ServiceProvider',
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -204,6 +205,7 @@ return [
         'Menu'      => 'Lavary\Menu\Facade',
         'Html'      => Illuminate\Html\HtmlFacade::class,
         'Form'      => Illuminate\Html\FormFacade::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
     ],
 
 ];
