@@ -13,7 +13,7 @@ class ImageRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,10 +24,7 @@ class ImageRequest extends Request
     public function rules()
     {
         return [
-            'id_utilisateur'=>'required|integer|unique:Image,id_utilisateur',
-            'id_campagne'=>'required|integer|unique:Image,id_campagne',
-            'id_image'=>'required|integer|unique:Image,id_image',
-            'lien_image'=>'required|string',
+            'image'=>'required',
             'titre_image'=>'required|strin|max:254',
             'description_image'=>'required|string',
             'geo_image'=>'string',

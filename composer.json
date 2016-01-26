@@ -12,7 +12,8 @@
         "bestmomo/scafold": "dev-master",
         "barryvdh/laravel-debugbar": "^2.1",
         "lavary/laravel-menu": "dev-master",
-        "overtrue/laravel-lang": "dev-master"
+        "overtrue/laravel-lang": "dev-master",
+        "intervention/image" : "2.3.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

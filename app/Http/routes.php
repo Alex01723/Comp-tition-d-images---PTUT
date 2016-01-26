@@ -19,7 +19,12 @@ Route::get('/', function () {
 Route::get('home', '\Bestmomo\Scafold\Http\Controllers\HomeController@index');
 
 //Route::get('Campagne', function () {return view('Campagne');});
+<<<<<<< HEAD
 Route::controller('campagne', 'CampagneController');                                // Création d'une campagne (amené à bouger)
+=======
+Route::controller('Campagne', 'CampagneController');
+Route::controller('Image', 'ImageController');
+>>>>>>> e461e57985c897484591a5c1d6a5748d5e53fd5d
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -38,7 +43,13 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
+<<<<<<< HEAD
 // Menu de navigation
+=======
+//Route::post('image/envoi', 'ImageController@postForm');
+
+
+>>>>>>> e461e57985c897484591a5c1d6a5748d5e53fd5d
 Menu::make('MyNavBar', function($menu){
     $menu->add('Accueil', '/:8888');
     $menu->add('Campagnes en cours','campagne');
