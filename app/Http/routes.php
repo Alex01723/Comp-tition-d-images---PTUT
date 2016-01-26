@@ -11,12 +11,15 @@
 |
 */
 
+// Routes principales
 Route::get('/', function () {
     return view('welcome');
 });
 
-
 Route::get('home', '\Bestmomo\Scafold\Http\Controllers\HomeController@index');
+
+//Route::get('Campagne', function () {return view('Campagne');});
+Route::controller('campagne', 'CampagneController');                                // Création d'une campagne (amené à bouger)
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -35,13 +38,13 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
-
-
-
+// Menu de navigation
 Menu::make('MyNavBar', function($menu){
     $menu->add('Accueil', '/:8888');
-    $menu->add('Compétitions en cours','competitions');
-    $menu->add('Résultats des compétitions', 'resultats');
+    $menu->add('Campagnes en cours','campagne');
+    $menu->add('Résultats des campagnes', 'resultats');
     $menu->add('Jugements',  'jugements');
 });
 
+// Route d'accès à la liste des campagnes
+Route::get('campagnes', 'CampagneController@listCampagnes');
