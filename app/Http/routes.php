@@ -18,6 +18,11 @@ Route::get('/', function () {
 
 Route::get('home', '\Bestmomo\Scafold\Http\Controllers\HomeController@index');
 
+
+//Route::get('Campagne', function () {return view('Campagne');});
+Route::controller('Campagne', 'CampagneController');
+
+
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

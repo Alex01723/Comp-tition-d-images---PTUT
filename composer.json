@@ -7,9 +7,12 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
+        "laravelcollective/html": "5.1.*",
+        "illuminate/html": "5.*",
         "bestmomo/scafold": "dev-master",
         "barryvdh/laravel-debugbar": "^2.1",
-        "lavary/laravel-menu": "dev-master"
+        "lavary/laravel-menu": "dev-master",
+        "overtrue/laravel-lang": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
