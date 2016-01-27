@@ -13,7 +13,7 @@ class CampagneController extends Controller
 
     public function getForm()
     {
-        return view('Campagne');
+        return view('campagne_creation');
     }
 
     public function postForm(CampagneRequest $request)
@@ -33,7 +33,14 @@ class CampagneController extends Controller
 
     public function retrieveAll() {
         $campagnes = Campagne::all();
-
         return view('campagnes', ['campagnes' => $campagnes]);
+    }
+
+    public function retrieveId($id_campagne) {
+        $campagne = Campagne::find($id_campagne);
+        if ($campagne != null)
+            return view('campagne', ['campagne' => $campagne]);
+        else
+            return Response("Campagne non trouvée");
     }
 }

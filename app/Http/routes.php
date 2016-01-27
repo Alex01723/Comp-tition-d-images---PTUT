@@ -16,7 +16,9 @@
     return view('welcome');
 }); */
 
-Route::get('/', '\Bestmomo\Scafold\Http\Controllers\HomeController@index');
+Route::get('/', function() {
+    return view('welcome');
+});
 
 Route::controller('Image', 'ImageController');
 
@@ -41,14 +43,15 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 //Route::post('image/envoi', 'ImageController@postForm');
 
 Menu::make('MyNavBar', function($menu){
-    $menu->add('Accueil', '/:8888');
+    $menu->add('Accueil', '');
     $menu->add('Campagnes en cours','campagnes');
     $menu->add('Résultats des campagnes', 'resultats');
-    $menu->add('Jugements',  'jugements');
+    $menu->add('Jugement',  'jugement');
 });
 
-// Route d'accès à la liste des campagnes
-Route::get('campagnes', 'CampagneController@retrieveAll');
+// Route d'accès pour gérer les campagnes
+Route::get('campagnes', 'CampagneController@retrieveAll');                                                              // Toutes les campagnes
+Route::get('campagne/{id_campagne}', ['uses' => 'CampagneController@retrieveId'])->where('id_campagne', '[1-9][0-9]*'); // Campagne précise
 
 // RÉSERVÉ À L'ADMINISTRATEUR SEULEMENT
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
