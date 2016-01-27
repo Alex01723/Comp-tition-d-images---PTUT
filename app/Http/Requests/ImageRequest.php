@@ -25,10 +25,10 @@ class ImageRequest extends Request
     {
         return [
             'image'=>'required',
-            'titre_image'=>'required|strin|max:254',
-            'description_image'=>'required|string',
-            'geo_image'=>'string',
-            'date_envoi'=>'date|before:tomorrow',
+            'titre_image'       =>'required|string|max:254',
+            'description_image' =>'required|string',
+//            'geo_image'=>'string',
+//            'date_envoi'=>'date|before:tomorrow',
         ];
     }
 }

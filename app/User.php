@@ -41,4 +41,8 @@ class User extends Model implements AuthenticatableContract,
     public function est_adm() {
         return $this->est_adm;
     }
+
+    public function getId(){
+        return $this->id;
+    }
 }
