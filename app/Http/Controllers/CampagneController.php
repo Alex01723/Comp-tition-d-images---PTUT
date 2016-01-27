@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Campagne;
+use App\Image;
 use App\Http\Requests\CampagneRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
@@ -39,7 +40,7 @@ class CampagneController extends Controller
     public function retrieveId($id_campagne) {
         $campagne = Campagne::find($id_campagne);
         if ($campagne != null)
-            return view('campagne', ['campagne' => $campagne]);
+            return view('campagne', ['campagne' => $campagne, 'images' => Image::all()->where('id_campagne', $id_campagne, false)]);
         else
             return Response("Campagne non trouvée");
     }
