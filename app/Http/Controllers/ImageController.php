@@ -38,6 +38,7 @@ class ImageController extends Controller
         $path = public_path('uploads/' . $filename);
         $photo=CLImage::make($photo->getRealPath());
         $exif= ($photo->exif() != null && array_key_exists('GPSLongitude', $photo->exif())) ? $photo->exif() : null;
+        $photo->save($path);
 
         // Sauvegarde de l'image et calcul de la géolocalisation si disponible
         $Image->geo_image=$this->get_location($exif);
@@ -45,7 +46,7 @@ class ImageController extends Controller
         $Image->save();
 
         // Appel de la vue de redirection
-        return View::make('admin', array('message' => 'L\'image a été mise en ligne !'));
+        return View::make('campagne', array('campagne' => Campagne::find($id_campagne), 'message' => 'L\'image a été mise en ligne !'));
     }
 
     // AJOUT. Obtenir la localisation d'une image à partir de ses données intrinsèques
