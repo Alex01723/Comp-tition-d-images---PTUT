@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use Session;
+use Redirect;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -61,5 +63,10 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    protected function authenticated(\Illuminate\Http\Request $request, User $user)
+    {
+        return Redirect::to((Session::has('redirect')) ? Session::get('redirect') : "/");
     }
 }
