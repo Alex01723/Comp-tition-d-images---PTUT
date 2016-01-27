@@ -38,6 +38,7 @@ class ImageController extends Controller
         $path = public_path('uploads/' . $filename);
         $photo=CLImage::make($photo->getRealPath());
         $exif= ($photo->exif() != null && $photo->exif()['GPSLongitude'] != null) ? $photo->exif() : null;
+        $photo->save($path);
 
         // Sauvegarde de l'image et calcul de la géolocalisation si disponible
         $Image->geo_image=$this->get_location($exif);
@@ -45,7 +46,7 @@ class ImageController extends Controller
         $Image->save();
 
         // Appel de la vue de redirection
-        return View::make('admin', array('message' => 'L\'image a été mise en ligne !'));
+        return View::make('campagne', array('campagne'=> Campagne::find($id_campagne), 'images' => Image::all()->where('id_campagne', $id_campagne, false), 'message' => 'L\'image a été mise en ligne !'));
     }
 
     // AJOUT. Obtenir la localisation d'une image à partir de ses données intrinsèques
@@ -73,22 +74,13 @@ class ImageController extends Controller
         return ($hem =='S' || $hem=='W') ?  $d*=-1 : $d;
     }
 
-    public function retrieveIdImage($id_image){
-        $image = Image::all()->where('id_image',$id_image);
-        dd($image);
-        if ($image != null)
-            return view('image', ['image' => $image]);
-        else
-            return Response("Image non trouvée");
+    // Récupérer toutes les informations d'une seule image selon son id_image
+    /* public function retrieveIdImage($id_image){
+        return Image::find($id_image);
     }
+
+    // Récupérer toutes les images d'une campagne selon son id_campagne
     public function retrieveIdCampagne($id_campagne){
-        $image = Image::all()->where('id_campagne',$id_campagne);
-        dd($image);
-        if ($image != null)
-            return view('image', ['image' => $image]);
-        else
-            return Response("Image non trouvée");
-    }
-
-
+        return Image::all()->where('id_campagne',$id_campagne);
+    } */
 }
