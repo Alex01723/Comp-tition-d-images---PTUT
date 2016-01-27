@@ -37,7 +37,7 @@ class ImageController extends Controller
         $filename  = time().'_' .uniqid() .'.' . $photo->getClientOriginalExtension();
         $path = public_path('uploads/' . $filename);
         $photo=CLImage::make($photo->getRealPath());
-        $exif= ($photo->exif() != null && $photo->exif()['GPSLongitude'] != null) ? $photo->exif() : null;
+        $exif= ($photo->exif() != null && array_key_exists('GPSLongitude', $photo->exif())) ? $photo->exif() : null;
 
         // Sauvegarde de l'image et calcul de la géolocalisation si disponible
         $Image->geo_image=$this->get_location($exif);
