@@ -25,7 +25,8 @@
                         </div>
                         <div class="form-group {!! $errors->has('Campagne') ? 'has-error' : '' !!}">
                             {!! Form::label('date_fin', 'Date de fin de la campagne:') !!}
-                            {!! Form::input('date','date_fin',\Carbon\Carbon::tomorrow()->addWeek(2)->format('d/m/Y')) !!}
+                            {!! Form::input('date','date_fin', \Carbon\Carbon::tomorrow()->addWeek(2)->format('d/m/Y')) !!}
+
                             {!! $errors->first('date_fin', '<small class="help-block">:message</small>') !!}
                         </div>
                         <div class="form-group {!! $errors->has('Campagne') ? 'has-error' : '' !!}">

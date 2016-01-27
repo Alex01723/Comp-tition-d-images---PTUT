@@ -12,11 +12,11 @@
 */
 
 // Routes principales
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
-});
+}); */
 
-Route::get('home', '\Bestmomo\Scafold\Http\Controllers\HomeController@index');
+Route::get('/', '\Bestmomo\Scafold\Http\Controllers\HomeController@index');
 
 //Route::get('Campagne', function () {return view('Campagne');});
 Route::controller('campagne', 'CampagneController');
@@ -44,10 +44,10 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 Menu::make('MyNavBar', function($menu){
     $menu->add('Accueil', '/:8888');
-    $menu->add('Campagnes en cours','campagne');
+    $menu->add('Campagnes en cours','campagnes');
     $menu->add('Résultats des campagnes', 'resultats');
     $menu->add('Jugements',  'jugements');
 });
 
 // Route d'accès à la liste des campagnes
-Route::get('campagnes', 'CampagneController@listCampagnes');
+Route::get('campagnes', 'CampagneController@retrieveAll');
