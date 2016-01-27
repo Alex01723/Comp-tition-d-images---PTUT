@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Image as Image;
+use App\Image;
 use App\Campagne;
 use Auth;
 use App\Http\Requests\ImageRequest;
@@ -38,7 +38,6 @@ class ImageController extends Controller
         $path = public_path('uploads/' . $filename);
         $photo=CLImage::make($photo->getRealPath());
         $exif= ($photo->exif() != null && $photo->exif()['GPSLongitude'] != null) ? $photo->exif() : null;
-        $photo->save($path);
 
         // Sauvegarde de l'image et calcul de la géolocalisation si disponible
         $Image->geo_image=$this->get_location($exif);

@@ -61,12 +61,6 @@ Route::filter('auth', function() {
         Session::put('redirect', URL::full());           // Sauvegarder le lien de redirection avant l'authentification
         return Redirect::to('/auth/login');
     }
-
-    // Configuration de la redirection après la connexion
-    if ($redirect = Session::get('redirect')) {
-        Session::forget('redirect');
-        return Redirect::to($redirect);
-    }
 });
 
 // RÉSERVÉ À L'ADMINISTRATEUR SEULEMENT
