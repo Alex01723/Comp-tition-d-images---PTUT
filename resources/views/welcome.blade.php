@@ -39,7 +39,7 @@
         <div class="container">
             <div class="content">
                 <div class="title">Laravel 5</div>
-
+                <span>Vue d'accueil à modifier</span>
             </div>
         </div>
     </body>
