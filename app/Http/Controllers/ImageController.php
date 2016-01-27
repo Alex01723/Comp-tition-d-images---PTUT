@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
+use App\Image as Image;
 use App\Campagne;
 use Auth;
 use App\Http\Requests\ImageRequest;
@@ -38,6 +38,7 @@ class ImageController extends Controller
         $path = public_path('uploads/' . $filename);
         $photo=CLImage::make($photo->getRealPath());
         $exif= ($photo->exif() != null && $photo->exif()['GPSLongitude'] != null) ? $photo->exif() : null;
+        $photo->save($path);
 
         // Sauvegarde de l'image et calcul de la géolocalisation si disponible
         $Image->geo_image=$this->get_location($exif);
@@ -71,6 +72,23 @@ class ImageController extends Controller
     function to_decimal($deg, $min, $sec, $hem){
         $d = $deg + ((($min/60) + ($sec/3600))/100);
         return ($hem =='S' || $hem=='W') ?  $d*=-1 : $d;
+    }
+
+    public function retrieveIdImage($id_image){
+        $image = Image::all()->where('id_image',$id_image);
+        dd($image);
+        if ($image != null)
+            return view('image', ['image' => $image]);
+        else
+            return Response("Image non trouvée");
+    }
+    public function retrieveIdCampagne($id_campagne){
+        $image = Image::all()->where('id_campagne',$id_campagne);
+        dd($image);
+        if ($image != null)
+            return view('image', ['image' => $image]);
+        else
+            return Response("Image non trouvée");
     }
 
 

@@ -12,7 +12,20 @@ Réalisé dans le cadre des projets tuteurés de deuxième année de DUT Informa
 - Première ébauche de la stylique de l'entête
 
 ### Mardi 26/01
-*À remplir*
+- Validation des mécanismes de session sur le site
+- Rédaction du planning
+- Adaptation de la base de données à la nouvelle table d’authentification (modification des clés étrangères, etc.)
+- Création de l’entité Campagne (Eloquent ORM)
+    - Modèle
+    - Contrôleur
+    - Vues contenant des formulaires.
+    - Importation, utilisation de Form et Html dans Laravel
+
+### Mercredi 27/01
+- Création de l’entité Image (Eloquent ORM)
+- Création de l'entité Libelle (Eloquent ORM)
+- Implémentation des premières fonctionnalités liées aux images
+- Amélioration des vues de création d’une campagne (réservée à l’administrateur) et d’affichage d’une campagne (images en cours, etc.)
 
 
 ## Informations supplétives sur Laravel
