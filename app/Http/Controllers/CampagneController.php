@@ -18,7 +18,6 @@ class CampagneController extends Controller
 
     public function postForm(CampagneRequest $request)
     {
-
         $Campagne = new Campagne();
         $Campagne->nom_campagne = $request->input('nom_campagne');
         $Campagne->description_campagne = $request->input('description_campagne');

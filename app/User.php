@@ -36,4 +36,9 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    // Déterminer si l'utilisateur est un administrateur ou non pour l'accès au panneau /admin
+    public function est_adm() {
+        return $this->est_adm;
+    }
 }

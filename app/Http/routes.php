@@ -18,8 +18,6 @@
 
 Route::get('/', '\Bestmomo\Scafold\Http\Controllers\HomeController@index');
 
-//Route::get('Campagne', function () {return view('Campagne');});
-Route::controller('campagne', 'CampagneController');
 Route::controller('Image', 'ImageController');
 
 // Authentication routes...
@@ -39,7 +37,7 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
-
+// En cours d'écriture
 //Route::post('image/envoi', 'ImageController@postForm');
 
 Menu::make('MyNavBar', function($menu){
@@ -51,3 +49,13 @@ Menu::make('MyNavBar', function($menu){
 
 // Route d'accès à la liste des campagnes
 Route::get('campagnes', 'CampagneController@retrieveAll');
+
+// RÉSERVÉ À L'ADMINISTRATEUR SEULEMENT
+Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
+    Route::get('/admin', function() {
+       return Response("Vous êtes administrateur !");
+    });
+
+    //Route::get('Campagne', function () {return view('Campagne');});
+    Route::controller('/admin/campagne', 'CampagneController');
+});
