@@ -1,0 +1,12 @@
+
+.miniaturesImages{
+    width: 15vw;
+    min-width: 90px;
+    height: 15vw;
+    min-height: 90px;
+    float: left;
+    margin: 5px;
+    border: 1px solid black;
+    background-position: center;
+    background-size: cover;
+}
