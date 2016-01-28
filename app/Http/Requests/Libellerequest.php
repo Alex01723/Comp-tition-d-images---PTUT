@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class ImageRequest extends Request
+class Libellerequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class ImageRequest extends Request
     public function rules()
     {
         return [
-            'image'             =>'required|mimes:jpeg,bmp,png|between:10,24800',
-            'titre_image'       =>'required|string|max:254',
-            'description_image' =>'required|string',
+            'libelle'   =>'string|max:20|regex:(#[\w]+)+'
         ];
     }
 }

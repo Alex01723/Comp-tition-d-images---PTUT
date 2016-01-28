@@ -19,7 +19,7 @@
                 <div class="panel panel-default" style="overflow: auto;">
                     @foreach (Auth::user()->adminCampagnes() as $campagne)
                         <p>
-                            <strong>{{ $campagne->nom_campagne }}</strong><br>
+                            <strong>{{ "(" . $campagne->id_campagne . ") " . $campagne->nom_campagne }}</strong><br>
                             <span>{{ "Nombre d'images : " . count($campagne->retrieveImages()) }}</span><br>
                             <span>{{ "Date de fin : " . $campagne->date_fin }}</span><br><br>
 
