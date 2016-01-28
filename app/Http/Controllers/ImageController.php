@@ -46,7 +46,8 @@ class ImageController extends Controller
         $Image->save();
 
         // Appel de la vue de redirection
-        return View::make('campagne', array('campagne'=> Campagne::find($id_campagne), 'images' => Image::all()->where('id_campagne', $id_campagne, false), 'message' => 'L\'image a été mise en ligne !'));
+        return Redirect('/campagne/' . $id_campagne);
+        // return View::make('campagne', array('campagne'=> Campagne::find($id_campagne), 'images' => Image::all()->where('id_campagne', $id_campagne, false), 'message' => 'L\'image a été mise en ligne !'));
     }
 
     // AJOUT. Obtenir la localisation d'une image à partir de ses données intrinsèques
@@ -73,14 +74,4 @@ class ImageController extends Controller
         $d = $deg + ((($min/60) + ($sec/3600))/100);
         return ($hem =='S' || $hem=='W') ?  $d*=-1 : $d;
     }
-
-    // Récupérer toutes les informations d'une seule image selon son id_image
-    /* public function retrieveIdImage($id_image){
-        return Image::find($id_image);
-    }
-
-    // Récupérer toutes les images d'une campagne selon son id_campagne
-    public function retrieveIdCampagne($id_campagne){
-        return Image::all()->where('id_campagne',$id_campagne);
-    } */
 }

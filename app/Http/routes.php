@@ -51,7 +51,7 @@ Menu::make('MyNavBar', function($menu){
 Route::get('campagnes', 'CampagneController@retrieveAll');                                                                  // Toutes les campagnes
 Route::get('campagne/{id_campagne}', ['uses' => 'CampagneController@retrieveId'])->where('id_campagne', '[1-9][0-9]*');     // Campagne précise
 
-Route::get('campagne/{id_campagne}/submit', ['before' => 'auth', 'uses' => 'ImageController@getForm'])->where('id_campagne', '[1-9][0-9]*');    // A FINIR
+Route::get('campagne/{id_campagne}/submit', ['before' => 'auth', 'after' => 'auth', 'uses' => 'ImageController@getForm'])->where('id_campagne', '[1-9][0-9]*');    // A FINIR
 Route::post('campagne/{id_campagne}/submit', ['before' => 'auth', 'uses' => 'ImageController@postForm'])->where('id_campagne', '[1-9][0-9]*');
 
 // RÉSERVÉ AUX UTILISATEURS AUTHENTIFIÉS SEULEMENT
@@ -60,6 +60,10 @@ Route::filter('auth', function() {
     if (Auth::guest()) {
         Session::put('redirect', URL::full());           // Sauvegarder le lien de redirection avant l'authentification
         return Redirect::to('/auth/login');
+    }
+
+    if (Session::has('redirect')) {
+        Session::forget('redirect');
     }
 });
 

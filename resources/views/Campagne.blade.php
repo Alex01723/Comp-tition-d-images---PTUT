@@ -10,7 +10,7 @@
                     <a href="{{ $campagne->id_campagne .'/submit' }}">Lien</a>
                     <div style="text-align: left;">
                         @foreach ($images as $image)
-                            <div style='background-image:url("/uploads/{{$image->lien_image}}");' class="miniaturesImages">gdfgd<br></div>
+                            <div style='background-image:url("../uploads/{{$image->lien_image}}");' class="miniaturesImages">gdfgd<br></div>
                         @endforeach
                     </div>
                 </div>
