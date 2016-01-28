@@ -46,7 +46,8 @@ class ImageController extends Controller
         $Image->save();
 
         // Appel de la vue de redirection
-        return View::make('campagne', array('campagne'=> Campagne::find($id_campagne), 'images' => Image::all()->where('id_campagne', $id_campagne, false), 'message' => 'L\'image a été mise en ligne !'));
+        return Redirect('/campagne/' . $id_campagne);
+        // return View::make('campagne', array('campagne'=> Campagne::find($id_campagne), 'images' => Image::all()->where('id_campagne', $id_campagne, false), 'message' => 'L\'image a été mise en ligne !'));
     }
 
     // AJOUT. Obtenir la localisation d'une image à partir de ses données intrinsèques
