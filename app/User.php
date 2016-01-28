@@ -45,4 +45,20 @@ class User extends Model implements AuthenticatableContract,
     public function getId(){
         return $this->id;
     }
+
+    /*
+     *   On référence ici les méthodes spécifiques à l'administrateur : obtenir toutes les campagnes, le nombre d'images à valider, etc.
+     */
+
+    public function adminCampagnes() {
+        if ($this->est_adm())
+            return Campagne::all();
+        else return null;
+    }
+
+    public function adminImagesAValider() {
+        if ($this->est_adm())
+            return Image::all()->where('validation_image', 0);
+        else return null;
+    }
 }

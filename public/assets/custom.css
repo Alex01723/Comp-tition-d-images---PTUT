@@ -1,4 +1,10 @@
+/*
+ *      Fichier de surcharge CSS ~ Customisation
+ *         À destination des vues principales
+ */
 
+/* PAGE Campagne/{id_campagne} */
+/* Style des images après miniaturisation */
 .miniaturesImages{
     width: 15vw;
     min-width: 90px;
@@ -10,3 +16,38 @@
     background-position: center;
     background-size: cover;
 }
+
+/* GROUPE DE PAGES Administration */
+/* Style de la barre d'administration */
+#admin_barre {
+    background-color: #888;
+    color: #FFF;
+
+    border: none;
+    border-radius: 0px;
+
+    position: relative;
+    bottom: 25px;
+}
+
+#admin_barre_texte {
+    line-height: 50px;
+    padding-left: 15px;
+}
+
+#admin_barre_texte a {
+    color: #FFF;
+    text-decoration: none;
+}
+
+/* #admin_menu > .navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+
+    background-color: red;
+}
+
+#admin_menu > .navbar .navbar-collapse {
+    text-align: center;
+} */

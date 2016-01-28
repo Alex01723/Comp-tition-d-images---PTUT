@@ -70,9 +70,15 @@ Route::filter('auth', function() {
 // RÉSERVÉ À L'ADMINISTRATEUR SEULEMENT
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
     Route::get('/admin', function() {
-       return Response("Vous êtes administrateur !");
+       return view('admin/admin');
     });
 
-    //Route::get('Campagne', function () {return view('Campagne');});
-    Route::controller('/admin/campagne', 'CampagneController');
+    Menu::make('adminMenu', function($menu) {
+        $menu->add('Créer une campagne', 'admin/campagne/form');
+        $menu->add('Suivre les campagnes', 'admin/campagne');
+        $menu->add('Affecter des jurés', 'admin/jures');
+        $menu->add('Statistiques', 'admin/stats');
+    });
+
+    Route::controller('admin/campagne', 'CampagneController');
 });

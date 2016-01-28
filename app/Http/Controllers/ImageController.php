@@ -31,6 +31,7 @@ class ImageController extends Controller
 
         $Image->titre_image = $request->input('titre_image');
         $Image->description_image = $request->input('description_image');
+        $Image->validation_image = !Campagne::find($id_campagne)->aValider();
 
         // Création de l'objet $photo à partir de ce qu'on récupère de 'image' (Request)
         $photo = Input::file('image');

@@ -12,9 +12,13 @@ class CampagneController extends Controller
 {
     const nbSemainesVote = 2;
 
+    public function getIndex() {
+        return view("admin.campagne");
+    }
+
     public function getForm()
     {
-        return view('campagne_creation');
+        return view('admin.campagne_creation');
     }
 
     public function postForm(CampagneRequest $request)
@@ -29,14 +33,16 @@ class CampagneController extends Controller
         $Campagne->choix_validation = ($request->input('choix_validation') == null) ? false : true;
         $Campagne->save();
 
-        return View::make('adminAccueil', array('message' => 'tkt'));
+        return View::make('admin', array('message' => 'tkt'));
     }
 
+    // Retrouver toutes les campagnes
     public function retrieveAll() {
         $campagnes = Campagne::all();
         return view('campagnes', ['campagnes' => $campagnes]);
     }
 
+    // Retrouver une campagne par son numéro de campagne
     public function retrieveId($id_campagne) {
         $campagne = Campagne::find($id_campagne);
         if ($campagne != null)
