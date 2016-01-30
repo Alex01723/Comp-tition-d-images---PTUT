@@ -69,9 +69,13 @@ Route::filter('auth', function() {
 
 // RÉSERVÉ À L'ADMINISTRATEUR SEULEMENT
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
+    // Accueil de l'administration
     Route::get('/admin', function() {
        return view('admin/admin');
     });
+
+    // Choix des éléments à modérer avec une requête POST
+    Route::post('/admin', 'Admin\AdminController@validation');
 
     Menu::make('adminMenu', function($menu) {
         $menu->add('Créer une campagne', 'admin/campagne/form');

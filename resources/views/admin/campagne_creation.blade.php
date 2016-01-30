@@ -57,8 +57,7 @@
                             {!! $errors->first('choix_popularite', '<small class="help-block">:message</small>') !!}
                         </div>
 
-
-                        {!! Form::submit('Envoyer !', array('class' => 'btn btn-info pull-right')) !!}
+                        {!! Form::submit('Envoyer', array('class' => 'btn btn-info pull-right')) !!}
                         {!! Form::close() !!}
                     </div>
                 </div>

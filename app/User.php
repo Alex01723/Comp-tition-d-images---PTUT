@@ -58,7 +58,24 @@ class User extends Model implements AuthenticatableContract,
 
     public function adminImagesAValider() {
         if ($this->est_adm())
-            return Image::all()->where('validation_image', 0);
+            return Image::all()->where('validation_image', 0, false)
+                               ->sortBy('id_campagne');
         else return null;
+    }
+
+    /*
+     *   Fonctions tierces d'affichage
+     */
+    public function getGrade() {
+        $nb_images = count(Image::all()->where('id_utilisateur', $this->id, false));
+        if ($nb_images < 10) {
+            return "Nouveau participant";
+        } else if ($nb_images < 100) {
+            return "Participant confirmé";
+        } else if ($nb_images < 500) {
+            return "Participant avancé";
+        } else {
+            return "Participant professionnel";
+        }
     }
 }
