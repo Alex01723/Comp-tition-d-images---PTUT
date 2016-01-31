@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -56,11 +57,22 @@ class User extends Model implements AuthenticatableContract,
         else return null;
     }
 
+    public function adminCampagnesEnCours() {
+        if ($this->est_adm())
+            return Campagne::where('date_fin_vote', '>=', DB::raw('NOW()'))->get();
+    }
+
     public function adminImagesAValider() {
         if ($this->est_adm())
             return Image::all()->where('validation_image', 0, false)
                                ->sortBy('id_campagne');
         else return null;
+    }
+
+    public function adminJugements() {
+        if ($this->est_adm())
+            return Jugement::all();
+        else return array();
     }
 
     /*

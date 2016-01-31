@@ -69,5 +69,6 @@
 
 	<!-- Scripts supplémentaires -->
 	<script src="{{ URL::asset('assets/js/admin.js') }}"></script>
+	@yield('scripts_supplementaires')
 </body>
 </html>

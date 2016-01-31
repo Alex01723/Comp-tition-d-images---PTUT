@@ -37,16 +37,6 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
-// En cours d'écriture
-//Route::post('image/envoi', 'ImageController@postForm');
-
-Menu::make('MyNavBar', function($menu){
-    $menu->add('Accueil', '');
-    $menu->add('Campagnes en cours','campagnes');
-    $menu->add('Résultats des campagnes', 'resultats');
-    $menu->add('Jugement',  'jugement');
-});
-
 // Route d'accès pour gérer les campagnes
 Route::get('campagnes', 'CampagneController@retrieveAll');                                                                  // Toutes les campagnes
 Route::get('campagne/{id_campagne}', ['uses' => 'CampagneController@retrieveId'])->where('id_campagne', '[1-9][0-9]*');     // Campagne précise
@@ -69,13 +59,15 @@ Route::filter('auth', function() {
 
 // RÉSERVÉ À L'ADMINISTRATEUR SEULEMENT
 Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function() {
-    // Accueil de l'administration
-    Route::get('/admin', function() {
-       return view('admin/admin');
-    });
+    // Routes relatives à la page d'accueil de l'administration
+    Route::get('/admin', function() { return view('admin/admin'); });                       // Accueil de l'administration
+    Route::post('/admin', 'Admin\AdminController@validation');                              // Choix des éléments à modérer
 
-    // Choix des éléments à modérer avec une requête POST
-    Route::post('/admin', 'Admin\AdminController@validation');
+    // Contrôleur de création d'une campagne (méthodes GET et POST à l'intérieur)
+    Route::controller('admin/campagne', 'CampagneController');
+
+    // Affectation et visualisation des jurés des campagnes
+    Route::get('/admin/jures', function() { return view('admin/jures'); });
 
     Menu::make('adminMenu', function($menu) {
         $menu->add('Créer une campagne', 'admin/campagne/form');
@@ -83,6 +75,12 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
         $menu->add('Affecter des jurés', 'admin/jures');
         $menu->add('Statistiques', 'admin/stats');
     });
+});
 
-    Route::controller('admin/campagne', 'CampagneController');
+// MENU DU SITE DE COMPÉTITIONS D'IMAGES
+Menu::make('MyNavBar', function($menu){
+    $menu->add('Accueil', '');
+    $menu->add('Campagnes en cours','campagnes');
+    $menu->add('Résultats des campagnes', 'resultats');
+    $menu->add('Jugement',  'jugement');
 });

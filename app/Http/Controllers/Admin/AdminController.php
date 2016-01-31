@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 
 class AdminController extends Controller {
+
+    // Validation de la modération des images par l'administrateur
     public function validation(AdminRequest $request) {
         foreach ($request->all() as $element => $coche) {
 
