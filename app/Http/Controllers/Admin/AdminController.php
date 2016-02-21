@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Campagne;
 use Redirect;
+use Request;
+use Input;
+use Auth;
+
 use App\Image;
 use App\Http\Requests\AdminRequest;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 
 class AdminController extends Controller {
@@ -31,5 +32,33 @@ class AdminController extends Controller {
         }
 
         return Redirect::to('admin');
+    }
+
+    // Affectation des jurés à la campagne et redirection vers elle
+    public function affectation(AdminRequest $request) {
+        if (is_numeric(Request::segment(3))) {
+            // On récupère l'identifiant de la campagne
+            $id_campagne = Request::segment(3);
+
+            // PHASE 1. Intégrité des données reçues
+            // L'utilisateur ne doit pas être un administrateur et ne doit pas avoir proposé une image
+            $affectation_possible = true;
+            foreach(Input::get('jures') as $id_jure) {
+                if (!is_numeric($id_jure) || !Auth::user()->adminAffectable($id_jure, $id_campagne)) {
+                    $affectation_possible = false;
+                }
+            }
+
+            // PHASE 2. Modification de la base de données
+            // On supprime tous les tuples précédents et on ajoute les nouveaux.
+            if ($affectation_possible) {
+                Auth::user()->adminExclusionJures($id_campagne);
+
+                foreach(Input::get('jures') as $id_jure)
+                    Auth::user()->adminInscriptionJures($id_jure, $id_campagne);
+            }
+        }
+
+        return Redirect::back();
     }
 }

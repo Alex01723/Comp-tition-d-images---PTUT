@@ -13,9 +13,18 @@ h1, h2 {
     font-style: normal;
 }
 
+.txt_italique {
+    font-style: italic;
+}
+
 .txt_italique_gris {
     font-style: italic;
     color: #777;
+}
+
+.txt_italique_rouge {
+    font-style: italic;
+    color: #CD0000;
 }
 
 .txt_geol {
@@ -44,6 +53,12 @@ h1, h2 {
     font-size: 10px;
     color: blue;
     text-transform: uppercase;
+}
+
+.txt_liste_jures {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
 }
 
 /* PAGE Campagne/{id_campagne} */
@@ -135,6 +150,10 @@ h1, h2 {
     width: 40px;
 }
 
+.form_validation input[type="radio"] {
+    display: none;
+}
+
 /* #admin_menu > .navbar .navbar-nav {
     display: inline-block;
     float: none;
@@ -148,9 +167,87 @@ h1, h2 {
 } */
 
 .btn{
-    margin-left:5px;
+    margin-left: 5px;
 }
 
+/* PAGE admin/jures*/
+/* Éléments relatifs au choix des jurés */
+#choix_jures {
+    margin: 5px;
+    padding: 5px;
+}
+
+.erreur_jures {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.titre_jures {
+    display: block;
+    width: 100%;
+    padding: 5px;
+
+    background-color: #c7ddef;
+    border-radius: 3px;
+    text-align: center;
+
+    margin-bottom: 10px;
+}
+
+#groupe_maintenance_jures {
+    display: flex;
+}
+
+.maintenance_jures {
+    /* width: 49.5%; */
+    border-radius: 3px;
+    background-color: #F8F8F8;
+
+    padding: 5px;
+    flex: 1;
+}
+
+#moins_jures {
+    margin-right: 5px;
+}
+
+#plus_jures {
+    margin-left: 5px;
+}
+
+#input_ajout_jures {
+    width: 100%;
+}
+
+#liste_jures {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#liste_jures li {
+    display: block;
+
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid #e5e5e5;
+
+    padding: 3px;
+    text-indent: 10px;
+}
+
+#liste_jures li:nth-child(n+2) {
+    margin-top: 5px;
+}
+
+#liste_jures li:hover {
+    border: 1px solid #FF4040;
+    background-color: #FFC1C1;
+    cursor: pointer;
+}
+
+/* Styles supplétifs */
 .btn:hover, .active {
     background: #3cb0fd;
     background-image: -webkit-linear-gradient(top, #3cb0fd, #2f88c4);

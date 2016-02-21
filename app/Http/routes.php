@@ -68,6 +68,8 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
 
     // Affectation et visualisation des jurés des campagnes
     Route::get('/admin/jures', function() { return view('admin/jures'); });
+    Route::get('/admin/jures/{id}', function($id) { return view('admin/jures')->with('id',$id); })->where('id', '[1-9]\d*');
+    Route::post('/admin/jures/{id}', 'Admin\AdminController@affectation');
 
     Menu::make('adminMenu', function($menu) {
         $menu->add('Créer une campagne', 'admin/campagne/form');

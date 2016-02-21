@@ -36,6 +36,10 @@ class Campagne extends Model
         return ("Campagne terminée" === $this->getEtat());
     }
 
+    public function estEnCoursDeJugement() {
+        return ("Campagne en cours de jugement" === $this->getEtat());
+    }
+
     // Obtenir une couleur en fonction de l'état de la campagne
     public function getCouleur() {
         switch ($this->getEtat()) {

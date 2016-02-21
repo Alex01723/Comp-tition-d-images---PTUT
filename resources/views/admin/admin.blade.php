@@ -35,7 +35,7 @@
 
                         <div id="liste_images">
                             @if (count(Auth::user()->adminImagesAValider()) > 0)
-                                {!! Form::open() !!}
+                                {!! Form::open(array('class' => 'form_validation')) !!}
                                 @foreach (Auth::user()->adminImagesAValider() as $key => $image)
                                     {!!  Form::radio("radio" . $image->id_image, 'envoi_oui') !!}
                                     {!!  Form::radio("radio" . $image->id_image, 'envoi_non', true) !!}
