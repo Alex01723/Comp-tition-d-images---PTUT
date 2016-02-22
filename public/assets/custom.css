@@ -61,6 +61,30 @@ h1, h2 {
     font-size: 12px;
 }
 
+.txt_titre_campagne {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.txt_plaque_id_campagne {
+    margin-right: 5px;
+    padding: 3px;
+
+    background-color: #FFD700;
+    color: #104E8B;
+
+    border-radius: 3px;
+    border: 1px solid #104E8B;
+
+    font-size: 10px;
+    position: relative;
+    bottom: 2px;
+}
+
+.txt_item_campagne {
+
+}
+
 /* PAGE Campagne/{id_campagne} */
 /* Style des images après miniaturisation */
 .miniaturesImages{
@@ -245,6 +269,32 @@ h1, h2 {
     border: 1px solid #FF4040;
     background-color: #FFC1C1;
     cursor: pointer;
+}
+
+/* PAGE admin/campagne?page=X */
+/* Éléments relatifs au résumé des campagnes */
+#liste_campagnes {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#liste_campagnes li {
+    display: block;
+    padding: 15px;
+    margin: 10px;
+
+    border-radius: 3px;
+    border-width: 1px;
+    border-style: solid;
+}
+
+#liste_campagnes li p {
+    margin-top: 5px;
+}
+
+#liste_campagnes li .illustration {
+    width: 15px;
 }
 
 /* Styles supplétifs */

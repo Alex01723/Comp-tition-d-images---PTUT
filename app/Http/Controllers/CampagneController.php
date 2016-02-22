@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Campagne;
 use App\Image;
 use App\Http\Requests\CampagneRequest;
@@ -13,7 +14,7 @@ class CampagneController extends Controller
     const nbSemainesVote = 2;
 
     public function getIndex() {
-        return view("admin.campagne");
+        return View::make('admin.campagne', array('campagnes' => $this->retrieveEnCours()));
     }
 
     public function getForm()
@@ -39,6 +40,11 @@ class CampagneController extends Controller
     public function retrieveAll() {
         $campagnes = Campagne::all();
         return view('campagnes', ['campagnes' => $campagnes]);
+    }
+
+    // Retrouver toutes les campagnes en cours
+    public function retrieveEnCours() {
+        return Campagne::orderBy('date_fin_vote', 'desc')->paginate(5);
     }
 
     // Retrouver une campagne par son numéro de campagne

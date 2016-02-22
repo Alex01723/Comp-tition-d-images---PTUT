@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Campagne extends Model
 {
@@ -41,16 +42,44 @@ class Campagne extends Model
     }
 
     // Obtenir une couleur en fonction de l'état de la campagne
-    public function getCouleur() {
-        switch ($this->getEtat()) {
-            case "Campagne terminée":
-                return '#CD0000';
-            case "Campagne en cours de jugement":
-                return '#FF8000';
-            case "Campagne en cours":
-                return '#9ACD32';
-            case "Campagne non commencée":
-                return '#8B8B83';
+    public function getCouleur($fond = false) {
+        if (!$fond) {
+            switch ($this->getEtat()) {
+                case "Campagne terminée":
+                    return '#CD0000';
+                case "Campagne en cours de jugement":
+                    return '#FF8000';
+                case "Campagne en cours":
+                    return '#9ACD32';
+                case "Campagne non commencée":
+                    return '#8B8B83';
+            }
+        } else {
+            switch ($this->getEtat()) {
+                case "Campagne terminée":
+                    return '#FFC1C1';
+                case "Campagne en cours de jugement":
+                    return '#FFDAB9';
+                case "Campagne en cours":
+                    return '#C1FFC1';
+                case "Campagne non commencée":
+                    return '#F4F4F4';
+            }
         }
+    }
+
+    // Obtenir le nombre d'images associées à une campagne
+    public function getNombreImages() {
+        return DB::table('image')->where('id_campagne', '=', $this->id_campagne)->count();
+    }
+
+    // Obtenir le nombre de participants associés à la campagne
+    public function getNombreParticipants() {
+        return count(DB::select('SELECT DISTINCT id_utilisateur FROM image i WHERE id_campagne LIKE :idc', ['idc' => $this->id_campagne]));
+    }
+
+    // Obtenir le nombre de jurés associés à la campagne
+    public function getNombreJures() {
+        return count(DB::select('SELECT DISTINCT id_utilisateur FROM jugement j WHERE id_campagne LIKE :idc', ['idc' => $this->id_campagne]));
     }
 }

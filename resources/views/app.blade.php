@@ -20,6 +20,9 @@
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
 	<?php \Debugbar::enable();?>
+
+	<!-- Scripts supplémentaires qui doivent apparaître en haut pour l'aménagement des variables -->
+	@yield('scripts_supplementaires_TOP')
 </head>
 <body>
 	<nav class="navbar navbar-default">
