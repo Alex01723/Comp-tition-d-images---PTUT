@@ -17,34 +17,43 @@ class User extends Model implements AuthenticatableContract,
 {
     use Authenticatable, Authorizable, CanResetPassword;
 
-    /**
-     * The database table used by the model.
-     *
-     * @var string
-     */
+
     protected $table = 'users';
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['name', 'email', 'password'];
-
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
     protected $hidden = ['password', 'remember_token'];
+
+    public function getId(){
+        return $this->id;
+    }
 
     // Déterminer si l'utilisateur est un administrateur ou non pour l'accès au panneau /admin
     public function est_adm() {
         return $this->est_adm;
     }
 
-    public function getId(){
-        return $this->id;
+    // Renvoyer les campagnes dans lesquelles l'utilisateur est impliqué
+    // On passe par la classe de milieu Jugement
+    public function getCampagnesJugement($deja_jugees = false) {
+        $campagnes = array();
+
+        foreach (Jugement::where('id_utilisateur', '=', $this->id, false)->get() as $jugement)
+            if ($jugement->jugement_definitif == $deja_jugees)
+                array_push($campagnes, $jugement->getCampagne());
+
+        return $campagnes;
+    }
+
+    public function getCampagne($id_campagne) {
+        return Campagne::find($id_campagne);
+    }
+
+    // Renvoyer les jugements dans lesquels l'utilisateur est impliqué
+    public function getJugements($id_campagne = -1) {
+        if ($id_campagne == -1)
+            return Jugement::where('id_utilisateur', '=', $this->id, false)->get();
+        else
+            $conditions = ['id_utilisateur' => $this->id, 'id_campagne' => $id_campagne];
+            return Jugement::where($conditions, false)->get();
     }
 
     /*

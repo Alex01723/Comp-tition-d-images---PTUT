@@ -65,6 +65,7 @@
 	</nav>
 
 	@yield('admin_barre')
+	@yield('jugement_barre')
 	@yield('content')
 
 	<!-- Scripts -->

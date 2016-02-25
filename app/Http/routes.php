@@ -79,6 +79,13 @@ Route::group(['middleware' => 'App\Http\Middleware\AdminMiddleware'], function()
     });
 });
 
+// RÉSERVER AUX UTILISATEURS JUGES SEULEMENT
+Route::get('jugement', ['before' => 'auth', 'uses' => 'Jugement\JugementController@getAccueil']);
+Route::get('jugement/{idc}/filtrer', ['before' => 'auth', 'uses' => 'Jugement\JugementController@filtrer'])->where('idc', '[1-9]\d*');
+Route::post('jugement/{idc}/filtrer', ['before' => 'auth', 'uses' => 'Jugement\JugementController@continuer'])->where('idc', '[1-9]\d*');
+
+Route::get('jugement/{idc}/classer', ['before' => 'auth', 'as' => 'classer', 'uses' => 'Jugement\JugementController@classer'])->where('idc', '[1-9]\d*');
+
 // MENU DU SITE DE COMPÉTITIONS D'IMAGES
 Menu::make('MyNavBar', function($menu){
     $menu->add('Accueil', '');

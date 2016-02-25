@@ -20,6 +20,12 @@ class Campagne extends Model
         return Image::all()->where('id_campagne', $this->id_campagne, false);
     }
 
+    // Vérifier qu'une image appartient bien à cette campagne
+    public function possedeImage($id_image) {
+        $conditions = ['id_image' => $id_image, 'id_campagne' => $this->id_campagne];
+        return Image::where($conditions, false)->get();
+    }
+
     // Retrouver l'état d'une campagne
     public function getEtat() {
         if (strtotime($this->date_fin_vote) < \Carbon\Carbon::now()->getTimestamp()) {

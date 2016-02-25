@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Redirect;
 use App\Campagne;
 use App\Image;
 use App\Http\Requests\CampagneRequest;
