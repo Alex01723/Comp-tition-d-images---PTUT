@@ -1,6 +1,6 @@
 @extends('app')
 
-        <!-- Page d'accueil du système de jugement -->
+<!-- Page d'accueil du système de jugement -->
 @section('jugement_barre')
     <div class="navbar navbar-default" id="jugement_barre">
         <span id="admin_barre_texte">
@@ -11,7 +11,7 @@
 
 @section('content')
     @if (Session::has('msgFiltre'))
-        <div class="message_flash">
+        <div id="flash_ok" class="message_flash">
             <div>
                 {{ Session::get('msgFiltre') }}
             </div>

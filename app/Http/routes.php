@@ -44,6 +44,9 @@ Route::get('campagne/{id_campagne}', ['uses' => 'CampagneController@retrieveId']
 Route::get('campagne/{id_campagne}/submit', ['before' => 'auth', 'after' => 'auth', 'uses' => 'ImageController@getForm'])->where('id_campagne', '[1-9][0-9]*');    // A FINIR
 Route::post('campagne/{id_campagne}/submit', ['before' => 'auth', 'uses' => 'ImageController@postForm'])->where('id_campagne', '[1-9][0-9]*');
 
+// Route d'accès pour gérer les images
+Route::get('image/{id_image}', ['uses' => 'ImageController@afficher'])->where('id_image', '[1-9][0-9]*');
+
 // RÉSERVÉ AUX UTILISATEURS AUTHENTIFIÉS SEULEMENT
 Route::filter('auth', function() {
     // Si l'utilisateur n'est pas authentifié
@@ -84,7 +87,8 @@ Route::get('jugement', ['before' => 'auth', 'uses' => 'Jugement\JugementControll
 Route::get('jugement/{idc}/filtrer', ['before' => 'auth', 'uses' => 'Jugement\JugementController@filtrer'])->where('idc', '[1-9]\d*');
 Route::post('jugement/{idc}/filtrer', ['before' => 'auth', 'uses' => 'Jugement\JugementController@continuer'])->where('idc', '[1-9]\d*');
 
-Route::get('jugement/{idc}/classer', ['before' => 'auth', 'as' => 'classer', 'uses' => 'Jugement\JugementController@classer'])->where('idc', '[1-9]\d*');
+Route::get('jugement/{idc}/classer', ['before' => 'auth', 'uses' => 'Jugement\JugementController@classer'])->where('idc', '[1-9]\d*');
+Route::post('jugement/{idc}/classer', ['before' => 'auth', 'uses' => 'Jugement\JugementController@finir'])->where('idc', '[1-9]\d*');
 
 // MENU DU SITE DE COMPÉTITIONS D'IMAGES
 Menu::make('MyNavBar', function($menu){

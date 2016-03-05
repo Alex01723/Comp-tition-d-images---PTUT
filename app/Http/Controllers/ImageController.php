@@ -13,6 +13,21 @@ use Input;
 
 class ImageController extends Controller
 {
+    // Route vers l'affichage d'une image, redirection sur la vue et vérification de l'existence de l'image
+    public function afficher($id_image) {
+        if (Image::find($id_image))
+            return View::make('image', ['image' => Image::find($id_image),
+                                        'precedente' => Image::where('id_image', '<', Image::find($id_image)->id_image)
+                                                           ->where('id_campagne', '=', Image::find($id_image)->id_campagne)
+                                                           ->max('id_image'),
+                                        'suivante' => Image::where('id_image', '>', Image::find($id_image)->id_image)
+                                                             ->where('id_campagne', '=', Image::find($id_image)->id_campagne)
+                                                             ->min('id_image')]);
+        else
+            return Response('Image non trouvée');
+    }
+
+    // Formulaire de publication d'une image : accès en GET
     public function getForm($id_campagne)
     {
         $campagne = Campagne::find($id_campagne);
@@ -22,6 +37,7 @@ class ImageController extends Controller
             return Response("Stop pirater");
     }
 
+    // Formulaire de publication d'une image : accès en POST
     public function postForm(ImageRequest $request, $id_campagne)
     {
         // Création de l'instance Image (entité Eloquent ORM créée pour le projet)

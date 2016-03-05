@@ -11,9 +11,17 @@
 
 @section('content')
     @if (Session::has('msgJugement'))
-        <div class="message_flash">
+        <div id="flash_no" class="message_flash">
             <div>
                 {{ Session::get('msgJugement') }}
+            </div>
+        </div>
+    @endif
+
+    @if (Session::has('msgJugementOK'))
+        <div id="flash_ok" class="message_flash">
+            <div>
+                {{ Session::get('msgJugementOK') }}
             </div>
         </div>
     @endif

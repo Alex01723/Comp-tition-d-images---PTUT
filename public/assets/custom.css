@@ -122,6 +122,13 @@ h1, h2 {
     margin-bottom: 10px;
 }
 
+.txt_ibulle {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    color: #6495ED;
+}
+
 .message_flash {
     position: absolute;
     left: 50%;
@@ -132,12 +139,20 @@ h1, h2 {
 
 .message_flash div {
     border-radius: 3px;
-    border: 1px solid #CD0000;
-    background-color: #FFC1C1;
 
     padding: 10px;
     position: relative;
     left: -50%;
+}
+
+#flash_no div {
+    border: 1px solid #CD0000;
+    background-color: #FFC1C1;
+}
+
+#flash_ok div {
+    border: 1px solid #9ACD32;
+    background-color: #C1FFC1;
 }
 
 /* PAGE Campagne/{id_campagne} */
@@ -458,16 +473,16 @@ h1, h2 {
 }
 
 /* PAGE DE FILTRES */
-.filtrer_regles {
+.filtrer_regles, .classer_regles {
     margin: 10px;
     padding: 5px;
 }
 
-.filtrer_regles .progress-bar-custom {
+.filtrer_regles .progress-bar-custom, .classer_regles .progress-bar-custom {
     background: #6495ed;
 }
 
-.filtrer_regles .progress-msg {
+.filtrer_regles .progress-msg, .classer_regles .progress-msg {
     font-size: 14px;
 }
 
@@ -477,6 +492,22 @@ h1, h2 {
 
 .bloc_bouton_choix {
     cursor: pointer;
+}
+
+.lien_ibulle {
+    text-decoration: none;
+}
+
+.lien_ibulle:hover {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.bloc_ibulle {
+    border: 1px solid #6495ED;
+    padding: 5px;
+    margin-bottom: 2px;
+    display: block;
 }
 
 /* Styles supplétifs */

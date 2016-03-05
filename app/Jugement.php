@@ -32,6 +32,20 @@ class Jugement extends Model {
                           AND u.id LIKE '" . $this->id_utilisateur . "'")) == 1;
     }
 
+    // Renvoyer les votes liés à un jugement à un utilisateur
+    public function getVotes() {
+        $conditions = ["id_utilisateur" => $this->jure->id, "id_campagne" => $this->campagne->id_campagne];
+        return Vote::where($conditions, false)->orderBy('position', 'asc')->get();
+    }
+
+    // Ajouter ou modifier un vote d'utilisateur
+    public function ajouterVote($idc, $idu, $idi, $position) {
+        if (DB::table('vote')->where(['id_campagne' => $idc, 'id_utilisateur' => $idu, 'id_image' => $idi], false)->count() < 1)
+            DB::table('vote')->insert(['id_campagne' => $idc, 'id_utilisateur' => $idu, 'id_image' => $idi, 'position' => $position]);
+        else
+            DB::table('vote')->where(['id_campagne' => $idc, 'id_utilisateur' => $idu, 'id_image' => $idi], false)->update(['position' => $position]);
+    }
+
     // Relations d'appartenance Jugement — Campagne et Jugement — Utilisateur
     public function campagne() { return $this->belongsTo('App\Campagne', 'id_campagne', 'id_campagne'); }
     public function jure()  { return $this->belongsTo('App\User', 'id_utilisateur', 'id');}
