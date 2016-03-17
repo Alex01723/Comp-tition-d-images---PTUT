@@ -40,12 +40,14 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 // Route d'accès pour gérer les campagnes
 Route::get('campagnes', 'CampagneController@retrieveAll');                                                                  // Toutes les campagnes
 Route::get('campagne/{id_campagne}', ['uses' => 'CampagneController@retrieveId'])->where('id_campagne', '[1-9][0-9]*');     // Campagne précise
+Route::post('campagne/{id_campagne}', ['uses' => 'CampagneController@rechercher'])->where('id_campagne', '[1-9][0-9]*');
 
 Route::get('campagne/{id_campagne}/submit', ['before' => 'auth', 'after' => 'auth', 'uses' => 'ImageController@getForm'])->where('id_campagne', '[1-9][0-9]*');    // A FINIR
 Route::post('campagne/{id_campagne}/submit', ['before' => 'auth', 'uses' => 'ImageController@postForm'])->where('id_campagne', '[1-9][0-9]*');
 
 // Route d'accès pour gérer les images
 Route::get('image/{id_image}', ['uses' => 'ImageController@afficher'])->where('id_image', '[1-9][0-9]*');
+Route::post('image/{id_image}', ['before' => 'ajax', 'uses' => 'ImageController@apprecier'])->where('id_image', '[1-9][0-9]*');
 
 // RÉSERVÉ AUX UTILISATEURS AUTHENTIFIÉS SEULEMENT
 Route::filter('auth', function() {

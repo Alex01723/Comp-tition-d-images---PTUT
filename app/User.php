@@ -31,6 +31,11 @@ class User extends Model implements AuthenticatableContract,
         return $this->est_adm;
     }
 
+    // Déterminer si l'utilisateur apprécie une image en particulier
+    public function aime($id_image) {
+        return 0 < DB::table('apprecie')->where(['id_utilisateur' => $this->id, 'id_image' => $id_image], false)->count();
+    }
+
     // Renvoyer les campagnes dans lesquelles l'utilisateur est impliqué
     // On passe par la classe de milieu Jugement
     public function getCampagnesJugement($deja_jugees = false) {

@@ -47,8 +47,13 @@ class Jugement extends Model {
     }
 
     // Relations d'appartenance Jugement — Campagne et Jugement — Utilisateur
-    public function campagne() { return $this->belongsTo('App\Campagne', 'id_campagne', 'id_campagne'); }
-    public function jure()  { return $this->belongsTo('App\User', 'id_utilisateur', 'id');}
+    public function campagne() {
+        return $this->belongsTo('App\Campagne', 'id_campagne', 'id_campagne');
+
+    }
+    public function jure()  {
+        return $this->belongsTo('App\User', 'id_utilisateur', 'id');
+    }
 
     public function getCampagne() {
         return $this->campagne;

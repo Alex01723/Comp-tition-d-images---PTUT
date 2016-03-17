@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Image;
 use App\Campagne;
 use Auth;
+use DB;
 use App\Http\Requests\ImageRequest;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Request;
 use Illuminate\Support\Facades\View;
 use Intervention\Image\ImageManagerStatic as CLImage;
 use Intervention\Image\Facades\Image as CImage;
@@ -13,6 +16,10 @@ use Input;
 
 class ImageController extends Controller
 {
+    public function __construct() {
+        $this->middleware('ajax', ['only' => ['aimer']]);
+    }
+
     // Route vers l'affichage d'une image, redirection sur la vue et vérification de l'existence de l'image
     public function afficher($id_image) {
         if (Image::find($id_image))
@@ -25,6 +32,20 @@ class ImageController extends Controller
                                                              ->min('id_image')]);
         else
             return Response('Image non trouvée');
+    }
+
+    // AJAX. Apprécier ou non une image.
+    public function apprecier($id_image, Request $request) {
+        if (!is_numeric($id_image) || !Image::find($id_image))
+            return response()->json(['response' => 'ERREUR.']);
+
+        if (Auth::user()->aime($id_image)) {
+            DB::table('apprecie')->where(['id_utilisateur' => Auth::user()->id, 'id_image' => $id_image], false)->delete();
+            return response()->json(['response' => 'doitUnlike']);
+        } else {
+            DB::table('apprecie')->insert(['id_utilisateur' => Auth::user()->id, 'id_image' => $id_image]);
+            return response()->json(['response' => 'doitLike']);
+        }
     }
 
     // Formulaire de publication d'une image : accès en GET

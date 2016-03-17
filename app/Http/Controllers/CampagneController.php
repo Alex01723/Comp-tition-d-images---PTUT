@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use DB;
 use Redirect;
+use Request;
 use App\Campagne;
+
 use App\Image;
 use App\Http\Requests\CampagneRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\View;
+
+use App\Schulze;
+use App\Schulze\Calcul;
 
 class CampagneController extends Controller
 {
@@ -39,6 +44,9 @@ class CampagneController extends Controller
 
     // Retrouver toutes les campagnes
     public function retrieveAll() {
+        $calcul = new Calcul(8);
+        $calcul->gagnants();
+
         $campagnes = Campagne::all();
         return view('campagnes', ['campagnes' => $campagnes]);
     }
@@ -53,8 +61,27 @@ class CampagneController extends Controller
         $campagne = Campagne::find($id_campagne);
         if ($campagne != null)
             return view('campagne', ['campagne' => $campagne,
-                        'images' => Image::all()->where('id_campagne', $id_campagne, false)
-                                                ->where('validation_image', 1, false)]);
+                                     'images' => Image::where('id_campagne', $id_campagne, false)
+                                                       ->where('validation_image', 1, false)
+                                                       ->orderByRaw('RAND()')->get()]);
+        else
+            return Response("Campagne non trouvée");
+    }
+
+    // Retrouver une campagne avec des arguments de recherche
+    public function rechercher($id_campagne, Request $request) {
+        $campagne = Campagne::find($id_campagne);
+        $contenu = $request::get('recherche');
+
+        if ($campagne != null)
+            return view('campagne', ['campagne' => $campagne,
+                                     'images' => Image::where('id_campagne', $id_campagne, false)
+                                                        ->where(function($query) use ($contenu) {
+                                                            $query->where('titre_image', 'LIKE', '%' . $contenu . '%')
+                                                                  ->orWhere('description_image', 'LIKE', '%' . $contenu . '%'); })
+                                                        ->where('validation_image', 1, false)
+                                                        ->orderByRaw('RAND()')->get(),
+                                     'elementRecherche' => $contenu]);
         else
             return Response("Campagne non trouvée");
     }

@@ -36,7 +36,7 @@
                         </div>
                     @else
                         <div id="auth_jugement_ok">
-                            Vous êtes éligible au jugement. Cliquez ici pour plus de détails.
+                            Vous êtes éligible au jugement. Vos campagnes apparaissent ici.
                         </div>
 
                         <div id="recap_jugement">

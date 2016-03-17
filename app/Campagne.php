@@ -17,7 +17,7 @@ class Campagne extends Model
 
     // Retrouver les images d'une campagne avec son numéro
     public function retrieveImages() {
-        return Image::all()->where('id_campagne', $this->id_campagne, false);
+        return Image::all()->where('id_campagne', $this->id_campagne, false)->where('validation_image', 1, false);
     }
 
     // Vérifier qu'une image appartient bien à cette campagne
@@ -47,6 +47,19 @@ class Campagne extends Model
         return ("Campagne en cours de jugement" === $this->getEtat());
     }
 
+    public function estEnCours() {
+        return ("Campagne en cours" === $this->getEtat());
+    }
+
+    public function estNonCommencee() {
+        return ("Campagne non commencée" == $this->getEtat());
+    }
+
+    public function est_recente() {
+        return (strtotime($this->date_debut) > \Carbon\Carbon::now()->subHours(36)->getTimestamp())
+            && (strtotime($this->date_debut) < \Carbon\Carbon::now()->getTimestamp());
+    }
+
     // Obtenir une couleur en fonction de l'état de la campagne
     public function getCouleur($fond = false) {
         if (!$fond) {
@@ -74,9 +87,37 @@ class Campagne extends Model
         }
     }
 
+    // Obtenir la date associée au compte à rebours
+    public function getDateCompteARebours() {
+        switch ($this->getEtat()) {
+            case "Campagne terminée":
+                return $this->date_fin_vote;
+            case "Campagne en cours de jugement":
+                return $this->date_fin_vote;
+            case "Campagne en cours":
+                return $this->date_fin;
+            case "Campagne non commencée":
+                return $this->date_debut;
+        }
+    }
+
+    // Obtenir le texte associé au compte à rebours
+    public function getTexteCompteARebours() {
+        switch ($this->getEtat()) {
+            case "Campagne terminée":
+                return "Cette campagne est terminée";
+            case "Campagne en cours de jugement":
+                return "Avant la fin des votes";
+            case "Campagne en cours":
+                return "Avant la date butoir";
+            case "Campagne non commencée":
+                return "Avant le début de la campagne";
+        }
+    }
+
     // Obtenir le nombre d'images associées à une campagne
     public function getNombreImages() {
-        return DB::table('image')->where('id_campagne', '=', $this->id_campagne)->count();
+        return DB::table('image')->where('id_campagne', '=', $this->id_campagne)->where('validation_image', 1, false)->count();
     }
 
     // Obtenir le nombre de participants associés à la campagne
